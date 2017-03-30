@@ -1,11 +1,48 @@
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 body {
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-family: 'Gloria Hallelujah', cursive;
     font-size: 100%;
 }
-#status {
-    /* avoid an excessively wide status text */
-    white-space: pre;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 400px;
+
+
+/*
+CSS for the main navBar to navigate on page
+*/
+#defaultNav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #708090;
+}
+
+#defaultLi1 a, #defaultLi2 a, #defaultLi3 a, #defaultLi4 a{
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+#defaultLi1 a:hover {
+    background-color: #C71585;
+    color: white;
+}
+
+#defaultLi2 a:hover {
+    background-color: #FFFF00;
+    color: black;
+}
+
+#defaultLi3 a:hover {
+    background-color: #87CEFA;
+    color: #0000CD;
+}
+
+#defaultLi4 a:hover {
+    background-color: #D4AF37;
+    color: white;
 }
