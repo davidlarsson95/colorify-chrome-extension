@@ -46,3 +46,49 @@ CSS for the main navBar to navigate on page
     background-color: #D4AF37;
     color: white;
 }
+
+/*
+CSS for the main navBar to navigate on page - END
+*/
+
+/*
+Palette.html CSS
+*/
+#colorpicker {
+    width: 292px;
+    height: 250px;
+}
+#picker {
+    width: 250px;
+    height: 200px;
+    float: left;
+    border:3px solid gray;
+}
+#slider {
+    width: 30px;
+    height: 200px;
+    float: right;
+    border:3px solid black;
+}
+
+#pickerIndicator {
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    border: 1px solid white;
+}
+#sliderIndicator {
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    border: 1px solid black;
+}
+
+#hexfield, #rgbfield, #namefield {
+    display: block;
+    margin: 0 auto;
+}
+
+#info-wrapper {
+    margin-bottom: 50px;
+}
