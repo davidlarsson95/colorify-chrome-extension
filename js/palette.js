@@ -44,7 +44,4 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("namefield2").innerHTML = colorName[1];
             // Auto-updated end
         });
-
-
-
 });
