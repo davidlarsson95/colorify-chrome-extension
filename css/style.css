@@ -84,9 +84,15 @@ Palette.html CSS
     border: 1px solid black;
 }
 
-#hexfield, #rgbfield, #namefield {
+#hexfield, #rgbfield, #namefield2 {
     display: block;
     margin: 0 auto;
+}
+#namefield2 {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 50px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 #info-wrapper {
