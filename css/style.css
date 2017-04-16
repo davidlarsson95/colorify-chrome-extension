@@ -84,11 +84,11 @@ Palette.html CSS
     border: 1px solid black;
 }
 
-#hexfield, #rgbfield, #namefield2 {
+#hexfield, #rgbfield, #namefield, #change {
     display: block;
     margin: 0 auto;
 }
-#namefield2 {
+#namefield {
     font-size: 30px;
     text-align: center;
     padding-bottom: 50px;
@@ -103,11 +103,17 @@ Palette.html CSS
     display: none;
 }
 
+#change {
+    color: black;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #20b27d;
+    margin-bottom: 15px;
+ }
+
 /* Tooltip start
 * Generated from http://www.cssportal.com/css-tooltip-generator/#
 */
-
-
 
 a.about {
     background: #20b27d;
@@ -116,7 +122,7 @@ a.about {
     display: block;
     width: 290px;
     text-align: center;
-    font-size: 14px;
+    font-size: 11px;
     bottom: 0;
 }
 a.about span {
@@ -124,7 +130,7 @@ a.about span {
     width:140px;
     color: #FFFFFF;
     background: #000000;
-    height: 90px;
+    height: 145px;
     line-height: 30px;
     text-align: center;
     visibility: hidden;

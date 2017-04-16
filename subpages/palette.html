@@ -1,6 +1,7 @@
 <html>
 <head>
     <script type="text/javascript" src="../tools/colorpicker.js"></script>
+    <script type="text/javascript" src="../tools/ntcSimple.js"></script>
     <script type="text/javascript" src="../tools/ntc.js"></script>
     <script src="../js/palette.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -12,11 +13,13 @@
     <div id="slider"><div id="sliderIndicator"></div></div>
 </div>
 <div id="info-wrapper">
-    <label id="namefield2"></label>
+    <label id="namefield"></label>
+    <button type="button" id="change">Simplify the color name</button>
     <input id="hexfield" type="text" value="Hex" class="field left" readonly>
     <input id="rgbfield" type="text" value="RGB" class="field left" readonly>
+
     <a class="about">INFO
-        <span>Color name is closest match to the HEX-value.</span>
+        <span>The simplified version can be a little off since it uses a low amount of color names to simplify. But should give a clear name.</span>
     </a>
 
 </div>

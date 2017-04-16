@@ -6,6 +6,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+
     ColorPicker.fixIndicators(
         document.getElementById('sliderIndicator'),
         document.getElementById('pickerIndicator'));
@@ -40,8 +41,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.backgroundColor = hex;
 
             // Input hex and convert it to a name-value
+            var button = document.getElementById("change");
             var colorName = ntc.name(hex);
-            document.getElementById("namefield2").innerHTML = colorName[1];
+
+            button.addEventListener("click", function (){
+                colorName = ntcS.name(hex);
+                document.getElementById("namefield").innerHTML = colorName[1];
+            });
+            document.getElementById("namefield").innerHTML = colorName[1];
             // Auto-updated end
         });
 });
