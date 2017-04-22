@@ -160,3 +160,24 @@ a:hover.about span {
 /* Tooltip end
 * Generated from http://www.cssportal.com/css-tooltip-generator/#
 */
+
+/*
+Palette.html CSS END
+*/
+
+/*
+Sampler.html CSS
+*/
+
+#sample-wrapper {
+    height: 250px;
+    width: 200px;
+}
+
+#sampler {
+    display: block;
+    margin: 0 auto;
+    background-image: url("../images/eyedrop.png");
+    height: 50px;
+    width: 50px;
+}
