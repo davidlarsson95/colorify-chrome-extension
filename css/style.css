@@ -181,3 +181,9 @@ Sampler.html CSS
     height: 50px;
     width: 50px;
 }
+
+#links {
+    margin: 0;
+    display: block;
+    font-size: 13px;
+}
