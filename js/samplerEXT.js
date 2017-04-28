@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.storage.local.get("value", function(result) {
     value = result.value;
     document.getElementById("rgbfield").value = "rgb(" + value.a + ", " + value.b + ", " + value.c + ")";
-    });
+        });
     });
     document.getElementById("sampler").addEventListener("click", function () {
 
