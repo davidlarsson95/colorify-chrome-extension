@@ -5,16 +5,17 @@
 
 // TODO: FIND A PROXY AND TRY
 var color = [];
-var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+var globalVar = {};
 
 function pixelColor() {
     console.log("PING");
 
     var ssCanvas, ssContext;
-    // OVERLAY - (To avoid clicking links etc when getting sample)
+
+    // Overlay to avoid clicking links etc while color sampling
+    // Could not access in function properly.
     var overlay = document.createElement("div");
-    overlay.setAttribute("id", "tempOverlay");
+    overlay.setAttribute("class", "tempOverlayColorify");
     overlay.style.position = "absolute";
     overlay.style.top = "0";
     overlay.style.left = "0";
@@ -26,8 +27,8 @@ function pixelColor() {
 
     function takeSS() {
         html2canvas(document.body, {
-        allowTaint: true,
-        proxy: "",
+        //allowTaint: true,
+        //proxy: "",
         onrendered: function(canvas) {
             //alert(canvas);
             ssCanvas = canvas;
@@ -36,8 +37,9 @@ function pixelColor() {
             window.location.href=image;
         }
     });
-
+        // Append the overlay.
         document.documentElement.appendChild(overlay);
+
     }
     setTimeout(function() {
     takeSS();
@@ -52,21 +54,11 @@ function pixelColor() {
         chrome.storage.local.set({'value': color}, function() {
             console.log("SAVED")
         });
-        //alert("RGB of the color you clicked is: " + "rgb(" + color.a + ", " + color.b + ", " + color.c + ")");
 
-        // Alert box start - BEING WORKED ON
-        var alertDiv = document.createElement("div");
-        alertDiv.setAttribute('id', 'alertDiv');
-        alertDiv.style.height = "300px";
-        alertDiv.style.width = "300px";
-        alertDiv.style.background = "red";
-        alertDiv.style.zIndex = "999";
-        alertDiv.style.position = "fixed";
-        alertDiv.style.top = "25%";
-        alertDiv.style.left = "50%";
-        //document.documentElement.appendChild(alertDiv);
-        // Alert box end
+        // Initiate the alert box
+        popupBoxInit();
 
+        // Remove the overlay
         document.documentElement.removeChild(overlay);
         document.removeEventListener("click", clickEvent);
 
@@ -84,3 +76,42 @@ chrome.runtime.onMessage.addListener(
             sendResponse({farewell: color});
         }
     });
+
+
+function popupBoxInit() {
+    // Alert box start - BEING WORKED ON
+    var alertDiv = document.createElement("div");
+    alertDiv.setAttribute('id', 'alertDiv');
+    alertDiv.style.height = "170px";
+    alertDiv.style.width = "320px";
+    alertDiv.style.background = "rgb(" + color.a + ", " + color.b + ", " + color.c + ")";
+    alertDiv.style.borderStyle = "solid";
+    alertDiv.style.zIndex = "999";
+    alertDiv.style.position = "fixed";
+    alertDiv.style.top = "25%";
+    alertDiv.style.left = "50%";
+
+    var alertDivText = document.createElement("p");
+    alertDivText.innerHTML = "<br>You clicked the color " + "COLOR<br>" +
+        "rgb(" + color.a + ", " + color.b + ", " + color.c + ")<br>" + "HEX: #HEXVALUE";
+    alertDivText.style.marginLeft = "10px";
+    alertDivText.style.fontSize = "22px";
+    alertDivText.style.textShadow = "-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray";
+    alertDiv.appendChild(alertDivText);
+
+
+    var closeButton = document.createElement("button");
+    closeButton.innerHTML = "CLOSE";
+    closeButton.style.position = "absolute";
+    closeButton.style.bottom = "0";
+    closeButton.style.right = "0";
+    closeButton.style.marginBottom = "8px";
+    closeButton.style.marginRight = "8px";
+
+    closeButton.addEventListener("click", function() {
+       document.documentElement.removeChild(alertDiv);
+    });
+    alertDiv.appendChild(closeButton);
+    document.documentElement.appendChild(alertDiv);
+    // Alert box end
+}
