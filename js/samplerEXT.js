@@ -5,7 +5,8 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
     var value;
-    chrome.storage.onChanged.addListener(function(test1) {
+    var imagee;
+    chrome.storage.onChanged.addListener(function() {
 
 
     chrome.storage.local.get("value", function(result) {
@@ -15,10 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById("sampler").addEventListener("click", function () {
 
+
+        chrome.tabs.captureVisibleTab(null, {format: "png"}, function(image) {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+        chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello", imagesrc: image}, function(response) {
 
             });
         });
+    });
     });
 });

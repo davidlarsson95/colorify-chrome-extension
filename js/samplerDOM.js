@@ -2,15 +2,10 @@
  * Color sampler
  *
  * @author David Larsson */
-
-// TODO: FIND A PROXY AND TRY
 var color = [];
-var globalVar = {};
 
-function pixelColor() {
+function pixelColor(imageCapt) {
     console.log("PING");
-
-    var ssCanvas, ssContext;
 
     // Overlay to avoid clicking links etc while color sampling
     // Could not access in function properly.
@@ -26,17 +21,18 @@ function pixelColor() {
     overlay.style.zIndex = "9999";
 
     function takeSS() {
-        html2canvas(document.body, {
-        //allowTaint: true,
-        //proxy: "",
-        onrendered: function(canvas) {
-            //alert(canvas);
-            ssCanvas = canvas;
-            ssContext = ssCanvas.getContext("2d");
-            var image = canvas.toDataURL("image/png");
-            window.location.href=image;
-        }
-    });
+        var canvas = document.createElement("canvas");
+        window.contextColorify = canvas.getContext("2d");
+        var image = new Image();
+        image.onload = function() {
+            console.log("DRAWN");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            contextColorify.drawImage(image, 0, 0);
+            //window.location.href = canvas.toDataURL("image/png");
+        };
+        image.src = imageCapt;
+
         // Append the overlay.
         document.documentElement.appendChild(overlay);
 
@@ -47,16 +43,16 @@ function pixelColor() {
 
     function clickEvent(e) {
         var x = e.pageX, y = e.pageY;
-        var data = ssContext.getImageData(x, y, 1, 1).data;
+        var data = contextColorify.getImageData(x, y, 1, 1).data;
         console.log(data);
         color = {a: data[0], b: data[1], c: data[2]};
         console.log(color);
-        chrome.storage.local.set({'value': color}, function() {
-            console.log("SAVED")
+       chrome.storage.local.set({'value': color}, function() {
+           console.log("SAVED")
         });
 
         // Initiate the alert box
-        popupBoxInit();
+       popupBoxInit();
 
         // Remove the overlay
         document.documentElement.removeChild(overlay);
@@ -65,12 +61,12 @@ function pixelColor() {
     }
 
     document.addEventListener("click", clickEvent);
-    window.onresize = takeSS();
+    //.onresize = takeSS();
 }
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         // Execute code here
-        pixelColor();
+        pixelColor(request.imagesrc);
 
         if (request.greeting === "hello") {
             sendResponse({farewell: color});
