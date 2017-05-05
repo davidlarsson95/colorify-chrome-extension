@@ -18,7 +18,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["tools/html2canvas.js",
+      "js": ["tools/color_classifier.js", "tools/html2canvas.js",
         "js/samplerDOM.js"]
     }
   ]

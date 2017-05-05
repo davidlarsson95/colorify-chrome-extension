@@ -42,13 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Input hex and convert it to a name-value
             var button = document.getElementById("change");
-            var colorName = ntc.name(hex);
+            var colorClassifier = new ColorClassifier();
+            var colorName = colorClassifier.classify(hex);
 
             button.addEventListener("click", function (){
-                colorName = ntcS.name(hex);
-                document.getElementById("namefield").innerHTML = colorName[1];
+                colorName = colorClassifier.classifyS(hex);
+                document.getElementById("namefield").innerHTML = colorName;
             });
-            document.getElementById("namefield").innerHTML = colorName[1];
+            document.getElementById("namefield").innerHTML = colorName;
             // Auto-updated end
         });
 });
