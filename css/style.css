@@ -187,3 +187,39 @@ Sampler.html CSS
     display: block;
     font-size: 13px;
 }
+
+/*
+Sampler.html CSS end
+*/
+
+/*
+Searcher.html CSS start
+*/
+
+#search-body {
+    height: 400px;
+    width: 300px;
+    background: blue;
+}
+
+#search-namefield {
+    background: green;
+    height: 50px;
+}
+
+#search-field {
+    margin-top: 10%;
+    background: red;
+    height: 35px;
+    width: 230px;
+}
+
+#main-wrapper {
+    background: yellow;
+    height: 180px;
+    margin-top: 15%;
+}
+
+/*
+Searcher.html CSS end
+*/

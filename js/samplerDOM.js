@@ -20,6 +20,7 @@ function pixelColor(imageCapt) {
     overlay.style.background = "transparent";
     overlay.style.zIndex = "9999";
 
+
     function takeSS() {
         var canvas = document.createElement("canvas");
         window.contextColorify = canvas.getContext("2d");

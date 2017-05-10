@@ -4,7 +4,10 @@
   "name": "Colorify",
   "description": "Color tool for assistance with colors when browsing!",
   "version": "0.1",
-
+  "icons": { "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "subpages/sampler.html"
