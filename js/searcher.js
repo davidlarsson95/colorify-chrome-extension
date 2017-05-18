@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var button = document.getElementById("search-button");
   var field = document.getElementById("search-field");
   var colorData = [
-      {name: "colorname", rgb: "rgb", hex: "hex", shades: []},
       {name: "Red", rgb: "255, 0, 0", hex: "#FF0000", shades: [
           {name: "Light", rgb: "205, 92, 92", hex: "#CD5C5C"},
           {name: "Dark", rgb: "139, 0, 0", hex: "#8B0000"}
@@ -46,12 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
           {name: "Light", rgb: "211, 211, 211", hex: "#D3D3D3"},
           {name: "Dark", rgb: "169, 169, 169", hex: "#A9A9A9"}
       ]},
+      {name: "Gray", rgb: "128, 128, 128", hex: "#808080", shades: [
+          {name: "Light", rgb: "211, 211, 211", hex: "#D3D3D3"},
+          {name: "Dark", rgb: "169, 169, 169", hex: "#A9A9A9"}
+      ]},
       {name: "White", rgb: "255, 255, 255", hex: "#FFFFFF", shades: [
           {name: "Beige", rgb: "245, 245, 220", hex: "#F5F5DC"},
           {name: "Smoke", rgb: "245, 245, 245", hex: "#F5F5F5"}
-      ]},
-      {name: "colorname", rgb: "rgb", hex: "hex", shades: [
-          {name: "colorname", rgb: "rgb", hex: "hex"}
       ]}
   ];
     var searchClear = function() {
@@ -68,10 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // Search-button.
     button.addEventListener("click", function () {
        displayColorInfo();
     });
 
+    // Function to display all the color box-information..
     function displayColorInfo() {
         var value = field.value;
         var colorName;

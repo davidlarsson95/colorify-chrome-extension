@@ -217,12 +217,15 @@ Searcher.html CSS start
 #search-field {
     margin-top: 10%;
     height: 25px;
-    width: 220px;
+    width: 170px;
 }
 
 #search-button {
     height: 32px;
-    width: 65px;
+}
+
+#search-bnb {
+    text-align: center;
 }
 
 #main-wrapper {
@@ -231,7 +234,7 @@ Searcher.html CSS start
 }
 
 .colorBoxes {
-    margin-top: 25%;
+    margin-top: 15%;
     width:32%;
     height: 75%;
     background: pink;
