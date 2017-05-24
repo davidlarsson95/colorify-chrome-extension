@@ -2,81 +2,101 @@
  * Color sampler
  *
  * @author David Larsson */
+
 var color = [];
 
 function pixelColor(imageCapt) {
-    console.log("PING");
-
+    var contextColorify = null;
     // Overlay to avoid clicking links etc while color sampling
-    // Could not access in function properly.
     var overlay = document.createElement("div");
     overlay.setAttribute("class", "tempOverlayColorify");
-    overlay.style.position = "absolute";
+    overlay.style.position = "fixed";
     overlay.style.top = "0";
     overlay.style.left = "0";
     overlay.style.right = "0";
     overlay.style.bottom = "0";
-    overlay.style.height = window.innerHeight;
+    overlay.style.height = "100%";
+    overlay.style.width = "100%";
     overlay.style.background = "transparent";
     overlay.style.zIndex = "9999";
+
+    // Cursor position relative to tab size -> Fixed a huge bug!
+    // TRACKS CURSOR POSITION FOR COLOR GRAB
+    var x = null;
+    var y = null;
+    window.addEventListener("mousemove", function (windowEvent) {
+        x = windowEvent.clientX;
+        y = windowEvent.clientY;
+        //console.log(x + " " + y)
+    });
 
 
     function takeSS() {
         var canvas = document.createElement("canvas");
-        window.contextColorify = canvas.getContext("2d");
+        contextColorify = canvas.getContext("2d");
         var image = new Image();
-        image.onload = function() {
-            console.log("DRAWN");
+        image.src = imageCapt;
+        image.onload = function () {
             canvas.width = image.width;
             canvas.height = image.height;
             contextColorify.drawImage(image, 0, 0);
-            //window.location.href = canvas.toDataURL("image/png");
-        };
-        image.src = imageCapt;
 
+        };
+
+        //window.location.href = imageCapt;
         // Append the overlay.
         document.documentElement.appendChild(overlay);
-
     }
-    setTimeout(function() {
-    takeSS();
-    }, 100);
 
-    function clickEvent(e) {
-        var x = e.pageX, y = e.pageY;
+
+    takeSS();
+
+    /* INACTIVE -> FUTURE UPDATE
+     window.onscroll = function () {
+     console.log("SCROLLING");
+     chrome.runtime.sendMessage({greeting: "scroll"}, function(response) {
+
+     });
+     };
+
+     window.onresize = function () {
+     console.log("RESIZING")
+     };
+     */
+    function clickEvent() {
+
+
         var data = contextColorify.getImageData(x, y, 1, 1).data;
-        console.log(data);
         color = {a: data[0], b: data[1], c: data[2]};
-        console.log(color);
-       chrome.storage.local.set({'value': color}, function() {
-           console.log("SAVED")
+        chrome.storage.local.set({'value': color}, function () {
         });
 
         // Initiate the alert box
-       popupBoxInit();
+        popupBoxInit();
 
         // Remove the overlay
         document.documentElement.removeChild(overlay);
+        document.documentElement.style.cursor = "default";
         document.removeEventListener("click", clickEvent);
 
     }
 
     document.addEventListener("click", clickEvent);
-    //.onresize = takeSS();
+    document.documentElement.style.cursor = "crosshair";
 }
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        // Execute code here
-        pixelColor(request.imagesrc);
 
-        if (request.greeting === "hello") {
-            sendResponse({farewell: color});
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+
+
+        if (request.greeting === "go") {
+            pixelColor(request.imagesrc);
+            sendResponse({farewell: "hey"});
         }
     });
 
 
 function popupBoxInit() {
-    // Alert box start - BEING WORKED ON
     var alertDiv = document.createElement("div");
     alertDiv.setAttribute('id', 'alertDiv');
     alertDiv.style.height = "170px";
@@ -91,11 +111,9 @@ function popupBoxInit() {
     var hex = colorToHex(rgb);
     var alertDivText = document.createElement("b");
     var colorClassifier = new ColorClassifier();
-    alertDivText.innerHTML = "Color info: " + "<br>Color: " + colorClassifier.classify(hex) + "<br>"+
-       "Simple color: " + colorClassifier.classifyS(hex) + "<br>rgb: " + rgb + "<br>" + "HEX: " + hex;
-    //alertDivText.style.marginLeft = "10px";
+    alertDivText.innerHTML = "Color info: " + "<br>Color: " + colorClassifier.classify(hex) + "<br>" +
+        "Simple color: " + colorClassifier.classifyS(hex) + "<br>rgb: " + rgb + "<br>" + "HEX: " + hex;
     alertDivText.style.fontSize = "20px";
-    //alertDivText.style.background = "white";
     alertDivText.style.textShadow = "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black";
     alertDivText.style.color = "white";
     alertDiv.appendChild(alertDivText);
@@ -108,13 +126,21 @@ function popupBoxInit() {
     closeButton.style.right = "0";
     closeButton.style.marginBottom = "8px";
     closeButton.style.marginRight = "8px";
+    closeButton.style.backgroundColor = "#ccc";
+    closeButton.style.borderRadius = "5px";
+    closeButton.style.color = "#fff";
+    closeButton.style.fontFamily = "Oswald";
+    closeButton.style.fontSize = "20px";
+    closeButton.style.textDecoration = "none";
+    closeButton.style.cursor = "pointer";
+    closeButton.style.border = "none";
 
-    closeButton.addEventListener("click", function() {
-       document.documentElement.removeChild(alertDiv);
+    closeButton.addEventListener("click", function () {
+        document.documentElement.removeChild(alertDiv);
     });
     alertDiv.appendChild(closeButton);
     document.documentElement.appendChild(alertDiv);
-    // Alert box end
+
 
     // Borrowed from: http://haacked.com/archive/2009/12/29/convert-rgb-to-hex.aspx/
     function colorToHex(color) {

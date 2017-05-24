@@ -5,18 +5,17 @@
  * @credits to Flexi & Chirag for colorpicker library & NTC library.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     ColorPicker.fixIndicators(
         document.getElementById('sliderIndicator'),
         document.getElementById('pickerIndicator'));
 
     ColorPicker(
-
         document.getElementById('slider'),
         document.getElementById('picker'),
 
-        function(hex, hsv, rgb, pickerCoordinate, sliderCoordinate) {
+        function (hex, hsv, rgb, pickerCoordinate, sliderCoordinate) {
 
             ColorPicker.positionIndicators(
                 document.getElementById('sliderIndicator'),
@@ -25,11 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
             );
             // Auto-updated start
             // Removing the cursor while changing color
-            document.addEventListener('mousedown', function() {
-               document.getElementById("slider").style.cursor = "none";
-               document.getElementById("picker").style.cursor = "none";
+            document.addEventListener('mousedown', function () {
+                document.getElementById("slider").style.cursor = "none";
+                document.getElementById("picker").style.cursor = "none";
             });
-            document.addEventListener('mouseup', function() {
+            document.addEventListener('mouseup', function () {
                 document.getElementById("slider").style.cursor = "default";
                 document.getElementById("picker").style.cursor = "default";
             });
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Changing background to color and adjusting hex RGB values
             document.getElementById("hexfield").value = hex;
-            document.getElementById("rgbfield").value = "rgb(" + rgb.r + ", " +  rgb.g + ", " + rgb.b + ")";
+            document.getElementById("rgbfield").value = "rgb(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ")";
             document.body.style.backgroundColor = hex;
 
             // Input hex and convert it to a name-value
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var colorClassifier = new ColorClassifier();
             var colorName = colorClassifier.classify(hex);
 
-            button.addEventListener("click", function (){
+            button.addEventListener("click", function () {
                 colorName = colorClassifier.classifyS(hex);
                 document.getElementById("namefield").innerHTML = colorName;
             });

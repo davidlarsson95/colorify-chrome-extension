@@ -16,50 +16,13 @@ body {
 }
 
 /*
-CSS for the main navBar to navigate on page
-*/
-#defaultNav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #708090;
-}
-
-#defaultLi1 a, #defaultLi2 a, #defaultLi3 a, #defaultLi4 a{
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-#defaultLi1 a:hover {
-    background-color: #C71585;
-    color: white;
-}
-
-#defaultLi2 a:hover {
-    background-color: #FFFF00;
-    color: black;
-}
-
-#defaultLi3 a:hover {
-    background-color: #87CEFA;
-    color: #0000CD;
-}
-
-#defaultLi4 a:hover {
-    background-color: #D4AF37;
-    color: white;
-}
-
-/*
-CSS for the main navBar to navigate on page - END
-*/
-
-/*
 Palette.html CSS
 */
+
+#htmlBugFix-palette {
+    height: 400px;
+}
+
 #colorpicker {
     width: 292px;
     height: 250px;
@@ -115,6 +78,7 @@ Palette.html CSS
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     background: #20b27d;
     margin-bottom: 15px;
+    cursor: pointer;
  }
 
 /* Tooltip start
@@ -175,6 +139,7 @@ Palette.html CSS END
 Sampler.html CSS
 */
 
+
 #sample-wrapper {
     height: 250px;
     width: 200px;
@@ -186,9 +151,8 @@ Sampler.html CSS
     background-image: url("../images/eyedrop.png");
     height: 50px;
     width: 50px;
+    cursor: pointer;
 }
-
-
 
 /*
 Sampler.html CSS end
@@ -222,6 +186,7 @@ Searcher.html CSS start
 
 #search-button {
     height: 32px;
+    cursor: pointer;
 }
 
 #search-bnb {
