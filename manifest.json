@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Colorify",
+  "name": "Colorify (Eye dropper tool & more!)",
   "description": "Color tool for assistance with colors when browsing!",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icons": { "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"

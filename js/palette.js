@@ -5,30 +5,31 @@
  * @credits to Flexi & Chirag for colorpicker library & NTC library.
  */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function() {
 
     ColorPicker.fixIndicators(
-        document.getElementById('sliderIndicator'),
-        document.getElementById('pickerIndicator'));
+        document.getElementById("sliderIndicator"),
+        document.getElementById("pickerIndicator"));
 
     ColorPicker(
-        document.getElementById('slider'),
-        document.getElementById('picker'),
+        document.getElementById("slider"),
+        document.getElementById("picker"),
 
-        function (hex, hsv, rgb, pickerCoordinate, sliderCoordinate) {
+        function(hex, hsv, rgb, pickerCoordinate, sliderCoordinate) {
 
             ColorPicker.positionIndicators(
-                document.getElementById('sliderIndicator'),
-                document.getElementById('pickerIndicator'),
+                document.getElementById("sliderIndicator"),
+                document.getElementById("pickerIndicator"),
                 sliderCoordinate, pickerCoordinate
             );
             // Auto-updated start
             // Removing the cursor while changing color
-            document.addEventListener('mousedown', function () {
+            document.addEventListener("mousedown", function() {
                 document.getElementById("slider").style.cursor = "none";
                 document.getElementById("picker").style.cursor = "none";
             });
-            document.addEventListener('mouseup', function () {
+
+            document.addEventListener("mouseup", function() {
                 document.getElementById("slider").style.cursor = "default";
                 document.getElementById("picker").style.cursor = "default";
             });
@@ -44,10 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var colorClassifier = new ColorClassifier();
             var colorName = colorClassifier.classify(hex);
 
-            button.addEventListener("click", function () {
+            button.addEventListener("click", function() {
                 colorName = colorClassifier.classifyS(hex);
                 document.getElementById("namefield").innerHTML = colorName;
             });
+
             document.getElementById("namefield").innerHTML = colorName;
             // Auto-updated end
         });

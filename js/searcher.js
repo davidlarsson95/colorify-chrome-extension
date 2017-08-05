@@ -1,7 +1,7 @@
 /**
  * Created by manze on 2017-05-12.
  */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function() {
     var button = document.getElementById("search-button");
     var field = document.getElementById("search-field");
     var colorData = [
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ]
         }
     ];
-    var searchClear = function () {
+    var searchClear = function() {
         field.value = "";
         field.removeEventListener("click", searchClear)
     };
@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', function () {
     field.addEventListener("click", searchClear);
 
     // Trigger "button" when click enter when you're in field -> enables fast search.
-    field.onkeypress = function (e) {
+    field.onkeypress = function(e) {
         if (e.keyCode === 13) {
             button.click();
         }
     };
 
     // Search-button.
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function() {
         displayColorInfo();
     });
 
@@ -136,6 +136,5 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-
 
 });

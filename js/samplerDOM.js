@@ -4,6 +4,8 @@
  * @author David Larsson */
 
 var color = [];
+var screenshot = new Image();
+var clickEventLoaded = 0;
 
 function pixelColor(imageCapt) {
     var contextColorify = null;
@@ -24,51 +26,46 @@ function pixelColor(imageCapt) {
     // TRACKS CURSOR POSITION FOR COLOR GRAB
     var x = null;
     var y = null;
-    window.addEventListener("mousemove", function (windowEvent) {
+    window.addEventListener("mousemove", function(windowEvent) {
         x = windowEvent.clientX;
         y = windowEvent.clientY;
-        //console.log(x + " " + y)
+
     });
 
-
-    function takeSS() {
+    function takeSS(message, refreshedImage) {
         var canvas = document.createElement("canvas");
         contextColorify = canvas.getContext("2d");
-        var image = new Image();
-        image.src = imageCapt;
-        image.onload = function () {
-            canvas.width = image.width;
-            canvas.height = image.height;
-            contextColorify.drawImage(image, 0, 0);
+        screenshot.src = imageCapt;
+
+        screenshot.onload = function() {
+            canvas.width = screenshot.width;
+            canvas.height = screenshot.height;
+            contextColorify.drawImage(screenshot, 0, 0);
 
         };
 
-        //window.location.href = imageCapt;
-        // Append the overlay.
-        document.documentElement.appendChild(overlay);
     }
-
 
     takeSS();
 
-    /* INACTIVE -> FUTURE UPDATE
-     window.onscroll = function () {
-     console.log("SCROLLING");
-     chrome.runtime.sendMessage({greeting: "scroll"}, function(response) {
+    var scrolling;
+    if (clickEventLoaded === 0)
+    window.addEventListener("scroll", function(event) {
+        clickEventLoaded = 1;
+        window.clearTimeout(scrolling);
+        scrolling = setTimeout(function() {
+            // No longer scrolling
+            console.log("scroll");
+            chrome.runtime.sendMessage({greeting: "scroll"}, function(response) {
 
-     });
-     };
+            });
+        }, 350);
+    }, false);
 
-     window.onresize = function () {
-     console.log("RESIZING")
-     };
-     */
     function clickEvent() {
-
-
         var data = contextColorify.getImageData(x, y, 1, 1).data;
         color = {a: data[0], b: data[1], c: data[2]};
-        chrome.storage.local.set({'value': color}, function () {
+        chrome.storage.local.set({value: color}, function() {
         });
 
         // Initiate the alert box
@@ -81,24 +78,29 @@ function pixelColor(imageCapt) {
 
     }
 
+    // Append the overlay.
+    document.documentElement.appendChild(overlay);
     document.addEventListener("click", clickEvent);
     document.documentElement.style.cursor = "crosshair";
 }
 
 chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-
+    function(request, sender, sendResponse) {
 
         if (request.greeting === "go") {
             pixelColor(request.imagesrc);
             sendResponse({farewell: "hey"});
         }
-    });
 
+        if (request.greeting === "goRefresh") {
+            screenshot.src = request.imagesrc;
+            sendResponse({farewell: "hey"});
+        }
+    });
 
 function popupBoxInit() {
     var alertDiv = document.createElement("div");
-    alertDiv.setAttribute('id', 'alertDiv');
+    alertDiv.setAttribute("id", "alertDiv");
     alertDiv.style.height = "170px";
     alertDiv.style.width = "320px";
     alertDiv.style.background = "rgb(" + color.a + ", " + color.b + ", " + color.c + ")";
@@ -118,7 +120,6 @@ function popupBoxInit() {
     alertDivText.style.color = "white";
     alertDiv.appendChild(alertDivText);
 
-
     var closeButton = document.createElement("button");
     closeButton.innerHTML = "CLOSE";
     closeButton.style.position = "absolute";
@@ -135,18 +136,20 @@ function popupBoxInit() {
     closeButton.style.cursor = "pointer";
     closeButton.style.border = "none";
 
-    closeButton.addEventListener("click", function () {
+    closeButton.addEventListener("click", function() {
         document.documentElement.removeChild(alertDiv);
     });
+
     alertDiv.appendChild(closeButton);
     document.documentElement.appendChild(alertDiv);
 
 
     // Borrowed from: http://haacked.com/archive/2009/12/29/convert-rgb-to-hex.aspx/
     function colorToHex(color) {
-        if (color.substr(0, 1) === '#') {
+        if (color.substr(0, 1) === "#") {
             return color;
         }
+
         var digits = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
 
         var red = parseInt(digits[2]);
@@ -154,7 +157,7 @@ function popupBoxInit() {
         var blue = parseInt(digits[4]);
 
         var rgb = blue | (green << 8) | (red << 16);
-        return digits[1] + '#' + rgb.toString(16);
+        return digits[1] + "#" + rgb.toString(16);
     }
 
 }
